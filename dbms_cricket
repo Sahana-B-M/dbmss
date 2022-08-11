@@ -1,0 +1,279 @@
+mcacnj@mcacnj-System-Product-Name:~$ mysql -h 192.168.14.71 -u VP21MC037 -p;
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 71
+Server version: 8.0.29-0ubuntu0.20.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| VP21MC037_college  |
+| VP21MC037_games    |
+| VP21MC037_name     |
+| VP21MC037_student  |
+| VP21MC037_vcet     |
+| information_schema |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> use VP21MC037_games;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++---------------------------+
+| Tables_in_VP21MC037_games |
++---------------------------+
+| matches                   |
+| player                    |
+| player_phone              |
+| team                      |
++---------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select *from player;
++-----+--------+-----+------+
+| pid | pname  | age | tid  |
++-----+--------+-----+------+
+| 101 | sunil  |  33 | 123  |
+| 102 | saccin |  32 | 124  |
+| 103 | dhoni  |  34 | 125  |
+| 104 | dhoni  |  35 | 125  |
+| 105 | raina  |  36 | 126  |
++-----+--------+-----+------+
+5 rows in set (0.00 sec)
+
+mysql> select *from team;
++-----+-------+-------+------+----------+
+| tid | tname | coach | cid  | city     |
++-----+-------+-------+------+----------+
+| 123 | rcb   | suma  | 1    | banglore |
+| 124 | csk   | suma  | 2    | chennai  |
++-----+-------+-------+------+----------+
+2 rows in set (0.01 sec)
+
+mysql> insert into team values("125","mi","karthik","3","africa");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into team values("125","kkr","sharma","4","newziland");
+ERROR 1062 (23000): Duplicate entry '125' for key 'team.PRIMARY'
+mysql> insert into team values("126","kkr","sharma","4","newziland");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into team values("127","royals","laxman","5","delhi");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from team;
++-----+--------+---------+------+-----------+
+| tid | tname  | coach   | cid  | city      |
++-----+--------+---------+------+-----------+
+| 123 | rcb    | suma    | 1    | banglore  |
+| 124 | csk    | suma    | 2    | chennai   |
+| 125 | mi     | karthik | 3    | africa    |
+| 126 | kkr    | sharma  | 4    | newziland |
+| 127 | royals | laxman  | 5    | delhi     |
++-----+--------+---------+------+-----------+
+5 rows in set (0.01 sec)
+
+mysql> desc player_phone;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pid   | varchar(20) | NO   | PRI | NULL    |       |
+| phone | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table stadium(sid varchar(20),Tname varchar(20),Caoach char(20),captain_id varchar(20),city char(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++---------------------------+
+| Tables_in_VP21MC037_games |
++---------------------------+
+| matches                   |
+| player                    |
+| player_phone              |
+| stadium                   |
+| team                      |
++---------------------------+
+5 rows in set (0.00 sec)
+
+mysql> desc stadium;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| sid        | varchar(20) | YES  |     | NULL    |       |
+| Tname      | varchar(20) | YES  |     | NULL    |       |
+| Caoach     | char(20)    | YES  |     | NULL    |       |
+| captain_id | varchar(20) | YES  |     | NULL    |       |
+| city       | char(20)    | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select *from team;
++-----+--------+---------+------+-----------+
+| tid | tname  | coach   | cid  | city      |
++-----+--------+---------+------+-----------+
+| 123 | rcb    | suma    | 1    | banglore  |
+| 124 | csk    | suma    | 2    | chennai   |
+| 125 | mi     | karthik | 3    | africa    |
+| 126 | kkr    | sharma  | 4    | newziland |
+| 127 | royals | laxman  | 5    | delhi     |
++-----+--------+---------+------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select *from player;
++-----+--------+-----+------+
+| pid | pname  | age | tid  |
++-----+--------+-----+------+
+| 101 | sunil  |  33 | 123  |
+| 102 | saccin |  32 | 124  |
+| 103 | dhoni  |  34 | 125  |
+| 104 | dhoni  |  35 | 125  |
+| 105 | raina  |  36 | 126  |
++-----+--------+-----+------+
+5 rows in set (0.00 sec)
+
+mysql> insert into stadium values("111","chinnaswamy",'56001',"banglore","mgroad");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into stadium values("222","kotla",'56001',"delhi","highway");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into stadium values("333","international",'88801',"chennai","tr nagar");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into stadium values("444","ksca",'56098',"banglore","peenya");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into stadium values("555","csca",'609035',"coachin","beach road");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from stadium;
++------+---------------+--------+------------+------------+
+| sid  | Tname         | Caoach | captain_id | city       |
++------+---------------+--------+------------+------------+
+| 111  | chinnaswamy   | 56001  | banglore   | mgroad     |
+| 222  | kotla         | 56001  | delhi      | highway    |
+| 333  | international | 88801  | chennai    | tr nagar   |
+| 444  | ksca          | 56098  | banglore   | peenya     |
+| 555  | csca          | 609035 | coachin    | beach road |
++------+---------------+--------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> desc matches;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| mid          | varchar(20) | NO   | PRI | NULL    |       |
+| mdate        | date        | YES  |     | NULL    |       |
+| time         | char(20)    | YES  |     | NULL    |       |
+| tid1         | varchar(20) | YES  |     | NULL    |       |
+| tid2         | varchar(20) | YES  |     | NULL    |       |
+| winning_tid  | varchar(20) | YES  |     | NULL    |       |
+| man_of_match | varchar(20) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> drop table matches;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table matches(mid varchar(20),mdate date,time time,tid1 varchar(20),sid varchar(20),tid2 varchar(20),winning_tid varchar(20),man_of_match varchar(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into matches values("01","2010-01-17","10am","123","111","124","111","sacin");
+ERROR 1292 (22007): Incorrect time value: '10am' for column 'time' at row 1
+mysql> insert into matches values("01","2010-01-17","10","123","111","124","111","sacin");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into matches values("02","2010-02-16","11","124","222","111","111","dhoni");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into matches values("03","2010-03-15","12","124","333","125","124","sunil");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into matches values("04","2010-03-15","18","125","444","126","126","raina");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into matches values("05","2010-04-17","10","126","555","127","127","dhoni");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from matches;
++------+------------+----------+------+------+------+-------------+--------------+
+| mid  | mdate      | time     | tid1 | sid  | tid2 | winning_tid | man_of_match |
++------+------------+----------+------+------+------+-------------+--------------+
+| 01   | 2010-01-17 | 00:00:10 | 123  | 111  | 124  | 111         | sacin        |
+| 02   | 2010-02-16 | 00:00:11 | 124  | 222  | 111  | 111         | dhoni        |
+| 03   | 2010-03-15 | 00:00:12 | 124  | 333  | 125  | 124         | sunil        |
+| 04   | 2010-03-15 | 00:00:18 | 125  | 444  | 126  | 126         | raina        |
+| 05   | 2010-04-17 | 00:00:10 | 126  | 555  | 127  | 127         | dhoni        |
++------+------------+----------+------+------+------+-------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> desc player_phone;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pid   | varchar(20) | NO   | PRI | NULL    |       |
+| phone | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into player_phone values("101",'1234567890');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into player_phone values("102",'6465783910');
+ERROR 1264 (22003): Out of range value for column 'phone' at row 1
+mysql> insert into player_phone values("102",'646578391');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into player_phone values("103",'6362719380');
+ERROR 1264 (22003): Out of range value for column 'phone' at row 1
+mysql> insert into player_phone values("103",'636271938');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into player_phone values("104",'263627193');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into player_phone values("105",'263627124');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into player_phone values("106",'26361234');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from player_phone;
++-----+------------+
+| pid | phone      |
++-----+------------+
+| 101 | 1234567890 |
+| 102 |  646578391 |
+| 103 |  636271938 |
+| 104 |  263627193 |
+| 105 |  263627124 |
+| 106 |   26361234 |
++-----+------------+
+6 rows in set (0.00 sec)
+
+mysql> 1.display the youngest player(in terms of age)name,team name,age in which he belongs of the tournament
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1.display the youngest player(in terms of age)name,team name,age in which he bel' at line 1
+mysql> ^C^C^C^C^C^C^C^C^C^C^C
+
+^C
+mysql> ^C^C^C^C
+
+^C
+mysql> cd desktop
+    -> ;
+
