@@ -1,0 +1,68 @@
+select state from tourist_place group by state having count(*)=(select count(*) from tourist_place group by state order by count(state)DESC LIMIT 1);
++-----------+
+| state     |
++-----------+
+| karnataka |
+| kerala    |
++-----------+
+2 rows in set (0.00 sec)
+
+mysql> select state,count(tp_id) from  tourist_place group by state order by count(tp_id)DESC LIMIT 1;
++-----------+--------------+
+| state     | count(tp_id) |
++-----------+--------------+
+| karnataka |            4 |
++-----------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select tp.tp_id,tp.tname,tp.state,count(v.tid)from tourist_place tp,visits v where v.tp_id=tp.tp_id group by v.tp_id order by count(v.tp_id)DESC LIMIT 1;
+ERROR 1054 (42S22): Unknown column 'tp.tname' in 'field list'
+mysql> select tp.tp_id,tp.tpname,tp.state,count(v.tid)from tourist_place tp,visits v where v.tp_id=tp.tp_id group by v.tp_id order by count(v.tp_id)DESC LIMIT 1;
++-------+---------+--------+--------------+
+| tp_id | tpname  | state  | count(v.tid) |
++-------+---------+--------+--------------+
+|   207 | waynand | kerala |            3 |
++-------+---------+--------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select *from tourist_place where state=karnataka;
+ERROR 1054 (42S22): Unknown column 'karnataka' in 'where clause'
+mysql> select *from tourist_place where tourist(state)=karnataka;
+ERROR 1305 (42000): FUNCTION VP21MC037_tour.tourist does not exist
+mysql> select tp.tp_id,tp.tpname,tp.state,count(v.tid)from tourist_place tp,visits v where v.tp_id=tp.tp_id group by v.tp_id order by count(v.tp_id)DESC LIMIT 1;
++-------+---------+--------+--------------+
+| tp_id | tpname  | state  | count(v.tid) |
++-------+---------+--------+--------------+
+|   207 | waynand | kerala |            3 |
++-------+---------+--------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select tp.tp_id,tp.tpname,tp.state,count(v.tid)from tourist_place tp,visits v where v.tp_id=tp.tp_id group by v.tp_id order by count(v.tp_id)DESC LIMIT 1;
++-------+---------+--------+--------------+
+| tp_id | tpname  | state  | count(v.tid) |
++-------+---------+--------+--------------+
+|   207 | waynand | kerala |            3 |
++-------+---------+--------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select *from tourist_place where tp_id=(select tp_id from visit group by tp_id order by count(tp_id) desc limit 1);
+ERROR 1146 (42S02): Table 'VP21MC037_tour.visit' doesn't exist
+mysql> select *from tourist_place where tp_id=(select tp_id from visits group by tp_id order by count(tp_id) desc limit 1);
++-------+---------+--------+------+---------+
+| tp_id | tpname  | state  | kilo | history |
++-------+---------+--------+------+---------+
+|   207 | waynand | kerala |  133 | forests |
++-------+---------+--------+------+---------+
+1 row in set (0.01 sec)
+
+mysql> select *from tourist_place where tp_id=(select tp_id from visits group by tp_id order by count(*) desc limit 1);
++-------+---------+--------+------+---------+
+| tp_id | tpname  | state  | kilo | history |
++-------+---------+--------+------+---------+
+|   207 | waynand | kerala |  133 | forests |
++-------+---------+--------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
