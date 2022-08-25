@@ -1,0 +1,330 @@
+mysql> create table tourist(tid int(6) primary key,tname varchar(20),age int(10),country varchar(20));
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> create table tourist_place(tp_id int(5) primary key,tpname varchar(20),state varchar(20),kilo int(6),history varchar(20));
+Query OK, 0 rows affected, 2 warnings (0.01 sec)
+
+mysql> create table visits(tp_id int(5) foreign key(tp_id)references tourist(tp_id),tid int(6),vdate date);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key(tp_id)references tourist(tp_id),tid int(6),vdate date)' at line 1
+mysql> desc tourist;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| tid     | int         | NO   | PRI | NULL    |       |
+| tname   | varchar(20) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| country | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc tourist_place;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| tp_id   | int         | NO   | PRI | NULL    |       |
+| tpname  | varchar(20) | YES  |     | NULL    |       |
+| state   | varchar(20) | YES  |     | NULL    |       |
+| kilo    | int         | YES  |     | NULL    |       |
+| history | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table visits(tp_id int(5) foreign key(tp_id)references tourist(tp_id),tid int(6) foreign key(tid)references tourist(tid),vdate d
+ate);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key(tp_id)references tourist(tp_id),tid int(6) foreign key(tid)reference' at line 1
+mysql> create table email(tid int(6) primary key,email varchar(20));
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> desc email;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| tid   | int         | NO   | PRI | NULL    |       |
+| email | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> create table visits(tp_id int(5) foreign key(tp_id)references tourist(tp_id),tid int(6) foreign key(tid)references tourist(tid),vdate date);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key(tp_id)references tourist(tp_id),tid int(6) foreign key(tid)reference' at line 1
+mysql> create table visits(tp_id int(5) foreign key(tp_id)references tourist(tp_id),tid int(6) foreign key(tid)references tourist(tid),vdate date));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key(tp_id)references tourist(tp_id),tid int(6) foreign key(tid)reference' at line 1
+mysql> create table visits(tp_id int(5),foreign key(tp_id)references tourist(tp_id),tid int(6),foreign key(tid)references tourist(tid),vdate date));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> create table visits(tp_id int(5),foreign key(tp_id)references tourist(tp_id),tid int(6),foreign key(tid)references tourist(tid),vdate date);
+ERROR 3734 (HY000): Failed to add the foreign key constraint. Missing column 'tp_id' for constraint 'visits_ibfk_1' in the referenced table 'tourist'
+mysql> create table visits(tp_id int(5),foreign key(tp_id)references tourist_place(tp_id),tid int(6),foreign key(tid)references tourist(tid),v
+date date);
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> desc visits;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| tp_id | int  | YES  | MUL | NULL    |       |
+| tid   | int  | YES  | MUL | NULL    |       |
+| vdate | date | YES  |     | NULL    |       |
++-------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc tourist;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| tid     | int         | NO   | PRI | NULL    |       |
+| tname   | varchar(20) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| country | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into tourist values('101',"chaitra",'22',"asia");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into tourist values('102',"chandu",'24',"india");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into tourist values('103',"nischal",'23',"africa");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into tourist values('104',"manu",'25',"america");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from tourist;
++-----+---------+------+---------+
+| tid | tname   | age  | country |
++-----+---------+------+---------+
+| 101 | chaitra |   22 | asia    |
+| 102 | chandu  |   24 | india   |
+| 103 | nischal |   23 | africa  |
+| 104 | manu    |   25 | america |
++-----+---------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> desc tourist_place;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| tp_id   | int         | NO   | PRI | NULL    |       |
+| tpname  | varchar(20) | YES  |     | NULL    |       |
+| state   | varchar(20) | YES  |     | NULL    |       |
+| kilo    | int         | YES  |     | NULL    |       |
+| history | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into tourist_place values('201',"chikkmanglore","karnataka","cofee");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into tourist_place values('201',"ckm","karnataka","cofee");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into tourist_place values('201',"ckm","karnataka","cofee",'250');
+ERROR 1366 (HY000): Incorrect integer value: 'cofee' for column 'kilo' at row 1
+mysql> insert into tourist_place values('201',"ckm","karnataka",'250',"cofee");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into tourist_place values('202',"davanagere","karnataka",'115',"foodland");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into tourist_place values('203',"paris","us",'350',"tower");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into tourist_place values('204',"coorg","karnataka",'110',"plantation");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into tourist_place values('205',"gokarna","karnataka",'160',"beaches");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from tourist_place;
++-------+------------+-----------+------+------------+
+| tp_id | tpname     | state     | kilo | history    |
++-------+------------+-----------+------+------------+
+|   201 | ckm        | karnataka |  250 | cofee      |
+|   202 | davanagere | karnataka |  115 | foodland   |
+|   203 | paris      | us        |  350 | tower      |
+|   204 | coorg      | karnataka |  110 | plantation |
+|   205 | gokarna    | karnataka |  160 | beaches    |
++-------+------------+-----------+------+------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into tourist_place values('206',"aleppy","kerala",'163',"backwater");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from tourist_place;
++-------+------------+-----------+------+------------+
+| tp_id | tpname     | state     | kilo | history    |
++-------+------------+-----------+------+------------+
+|   201 | ckm        | karnataka |  250 | cofee      |
+|   202 | davanagere | karnataka |  115 | foodland   |
+|   203 | paris      | us        |  350 | tower      |
+|   204 | coorg      | karnataka |  110 | plantation |
+|   205 | gokarna    | karnataka |  160 | beaches    |
+|   206 | aleppy     | kerala    |  163 | backwater  |
++-------+------------+-----------+------+------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into tourist_place values('206',"waynand","kerala",'133',"forests");
+ERROR 1062 (23000): Duplicate entry '206' for key 'tourist_place.PRIMARY'
+mysql> insert into tourist_place values('207',"waynand","kerala",'133',"forests");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from tourist_place;
++-------+------------+-----------+------+------------+
+| tp_id | tpname     | state     | kilo | history    |
++-------+------------+-----------+------+------------+
+|   201 | ckm        | karnataka |  250 | cofee      |
+|   202 | davanagere | karnataka |  115 | foodland   |
+|   203 | paris      | us        |  350 | tower      |
+|   204 | coorg      | karnataka |  110 | plantation |
+|   205 | gokarna    | karnataka |  160 | beaches    |
+|   206 | aleppy     | kerala    |  163 | backwater  |
+|   207 | waynand    | kerala    |  133 | forests    |
++-------+------------+-----------+------+------------+
+7 rows in set (0.00 sec)
+
+mysql> desc visit;
+ERROR 1146 (42S02): Table 'VP21MC037_tour.visit' doesn't exist
+mysql> desc visits;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| tp_id | int  | YES  | MUL | NULL    |       |
+| tid   | int  | YES  | MUL | NULL    |       |
+| vdate | date | YES  |     | NULL    |       |
++-------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into visits values('201','101','2000-04-07');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into visits values('202','102','2000-05-08');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into visits values('207','103','2002-06-08');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into visits values('206','104','1999-06-05');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into visits values('204','105','1998-03-05');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`VP21MC037_tour`.`visits`, CONSTRAINT `visits_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `tourist` (`tid`))
+mysql> select *from visits;
++-------+------+------------+
+| tp_id | tid  | vdate      |
++-------+------+------------+
+|   201 |  101 | 2000-04-07 |
+|   202 |  102 | 2000-05-08 |
+|   207 |  103 | 2002-06-08 |
+|   206 |  104 | 1999-06-05 |
++-------+------+------------+
+4 rows in set (0.01 sec)
+
+mysql> desc email;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| tid   | int         | NO   | PRI | NULL    |       |
+| email | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> insert into email values('101',"chaitra@gmail.com");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into email values('102',"chandu@gmail.com");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into email values('103',"nischal@gmail.com");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into email values('104',"manu@gmail.com");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from email;
++-----+-------------------+
+| tid | email             |
++-----+-------------------+
+| 101 | chaitra@gmail.com |
+| 102 | chandu@gmail.com  |
+| 103 | nischal@gmail.com |
+| 104 | manu@gmail.com    |
++-----+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> select *from visits;
++-------+------+------------+
+| tp_id | tid  | vdate      |
++-------+------+------------+
+|   201 |  101 | 2000-04-07 |
+|   202 |  102 | 2000-05-08 |
+|   207 |  103 | 2002-06-08 |
+|   206 |  104 | 1999-06-05 |
++-------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into visits values('203','105','1998-03-05');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`VP21MC037_tour`.`visits`, CONSTRAINT `visits_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `tourist` (`tid`))
+mysql> insert into visits values('203','104','1998-03-05');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into visits values('203','103','1998-05-05');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into visits values('207','103','1998-05-05');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into visits values('207','104','1998-05-05');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from visits;
++-------+------+------------+
+| tp_id | tid  | vdate      |
++-------+------+------------+
+|   201 |  101 | 2000-04-07 |
+|   202 |  102 | 2000-05-08 |
+|   207 |  103 | 2002-06-08 |
+|   206 |  104 | 1999-06-05 |
+|   203 |  104 | 1998-03-05 |
+|   203 |  103 | 1998-05-05 |
+|   207 |  103 | 1998-05-05 |
+|   207 |  104 | 1998-05-05 |
++-------+------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select *from tourist;
++-----+---------+------+---------+
+| tid | tname   | age  | country |
++-----+---------+------+---------+
+| 101 | chaitra |   22 | asia    |
+| 102 | chandu  |   24 | india   |
+| 103 | nischal |   23 | africa  |
+| 104 | manu    |   25 | america |
++-----+---------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select *from tourist_place;
++-------+------------+-----------+------+------------+
+| tp_id | tpname     | state     | kilo | history    |
++-------+------------+-----------+------+------------+
+|   201 | ckm        | karnataka |  250 | cofee      |
+|   202 | davanagere | karnataka |  115 | foodland   |
+|   203 | paris      | us        |  350 | tower      |
+|   204 | coorg      | karnataka |  110 | plantation |
+|   205 | gokarna    | karnataka |  160 | beaches    |
+|   206 | aleppy     | kerala    |  163 | backwater  |
+|   207 | waynand    | kerala    |  133 | forests    |
++-------+------------+-----------+------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select *from email;
++-----+-------------------+
+| tid | email             |
++-----+-------------------+
+| 101 | chaitra@gmail.com |
+| 102 | chandu@gmail.com  |
+| 103 | nischal@gmail.com |
+| 104 | manu@gmail.com    |
++-----+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
+
