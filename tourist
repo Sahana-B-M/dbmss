@@ -1,0 +1,203 @@
+create table Touristplace(tpid char(10) primary key,
+tpname varchar(20),
+state varchar(20),
+distance char(10),
+history varchar(20));
+
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| tpid     | char(10)    | NO   | PRI | NULL    |       |
+| tpname   | varchar(20) | YES  |     | NULL    |       |
+| state    | varchar(20) | YES  |     | NULL    |       |
+| distance | char(10)    | YES  |     | NULL    |       |
+| history  | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+insert into Touristplace values('TP01','Bangalore','Karnataka','250','Lalbagh');
+insert into Touristplace values('TP02','Mangalore','Karnataka','100','Beach');
+insert into Touristplace values('TP03','Bangalore','Karnataka','150','Iskhan');
+insert into Touristplace values('TP04','Panaji','Goa','350','Dudhsagar');
+insert into Touristplace values('TP05','Telangana','Hyderbad','1050','Charminar');
+
++------+-----------+-----------+----------+-----------+
+| tpid | tpname    | state     | distance | history   |
++------+-----------+-----------+----------+-----------+
+| TP01 | Bangalore | Karnataka | 250      | Lalbagh   |
+| TP02 | Mangalore | Karnataka | 100      | Beach     |
+| TP03 | Bangalore | Karnataka | 150      | Iskhan    |
+| TP04 | Panaji    | Goa       | 350      | Dudhsagar |
+| TP05 | Telangana | Hyderbad  | 1050     | Charminar |
++------+-----------+-----------+----------+-----------+
+
+
+create table Tourist(tid char(10) primary key,
+tname varchar(20),
+country varchar(20),
+age int(10));
+
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| tid     | char(10)    | NO   | PRI | NULL    |       |
+| tname   | varchar(20) | YES  |     | NULL    |       |
+| country | varchar(20) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+insert into Tourist values('T01','Deepthi','India','22');
+insert into Tourist values('T02','Darshini','India','16');
+insert into Tourist values('T03','Nethra','Australia','42');
+insert into Tourist values('T04','Prasanna','Brazil','52');
+insert into Tourist values('T05','Prabha','Maxico','62');
+
++-----+----------+-----------+------+
+| tid | tname    | country   | age  |
++-----+----------+-----------+------+
+| T01 | Deepthi  | India     |   22 |
+| T02 | Darshini | India     |   16 |
+| T03 | Nethra   | Australia |   42 |
+| T04 | Prasanna | Brazil    |   52 |
+| T05 | Prabha   | Maxico    |   62 |
++-----+----------+-----------+------+
+
+
+create table Visit(vdate date,
+tid char(10),
+tpid char(10),
+primary key(tid,tpid),
+foreign key(tid) references Tourist(tid),
+foreign key(tpid) references Touristplace(tpid));
+
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| vdate | date     | YES  |     | NULL    |       |
+| tid   | char(10) | NO   | PRI | NULL    |       |
+| tpid  | char(10) | NO   | PRI | NULL    |       |
++-------+----------+------+-----+---------+-------+
+
+insert into Visit values('2016-10-12','T01','TP01');
+insert into Visit values('2011-11-28','T02','TP01');
+insert into Visit values('2020-01-10','T01','TP02');
+insert into Visit values('2000-05-02','T03','TP03');
+insert into Visit values('2009-10-12','T04','TP04');
+insert into Visit values('2006-12-17','T05','TP05');
+insert into Visit values('2016-10-12','T03','TP01');
+insert into Visit values('2016-10-12','T04','TP01');
+insert into Visit values('2016-10-12','T05','TP01');
+
++------------+-----+------+
+| vdate      | tid | tpid |
++------------+-----+------+
+| 2016-10-12 | T01 | TP01 |
+| 2020-01-10 | T01 | TP02 |
+| 2016-10-12 | T01 | TP03 |
+| 2016-10-12 | T01 | TP04 |
+| 2016-10-12 | T01 | TP05 |
+| 2011-11-28 | T02 | TP01 |
+| 2016-10-12 | T03 | TP01 |
+| 2000-05-02 | T03 | TP03 |
+| 2016-10-12 | T04 | TP01 |
+| 2009-10-12 | T04 | TP04 |
+| 2016-10-12 | T05 | TP01 |
+| 2006-12-17 | T05 | TP05 |
++------------+-----+------+
+
+
+
+create table Email(email varchar(20),
+tid char(10),
+primary key(tid,email),
+foreign key(tid) references Tourist(tid));
+
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| email  | varchar(20) | NO   | PRI | NULL    |       |
+| tid    | char(10)    | NO   | PRI | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+insert into Email values('deepthi@gamil.com','T01');
+insert into Email values('dershu@gamil.com','T01');
+insert into Email values('prasanna@gamil.com','T02');
+insert into Email values('nethra@gamil.com','T03');
+insert into Email values('prabha@gamil.com','T04');
+insert into Email values('abc@gamil.com','T05');
+
++--------------------+-----+
+| email              | tid |
++--------------------+-----+
+| deepthi@gamil.com  | T01 |
+| dershu@gamil.com   | T01 |
+| prasanna@gamil.com | T02 |
+| nethra@gamil.com   | T03 |
+| prabha@gamil.com   | T04 |
+| abc@gamil.com      | T05 |
++--------------------+-----+
+
+
+1.select state,count(tpid) 
+from Touristplace
+group by state 
+order by count(tpid) desc limit 1;
+
++-----------+-------------+
+| state     | count(tpid) |
++-----------+-------------+
+| Karnataka |           3 |
++-----------+-------------+
+
+2.select tp.tpid,tp.tpname,tp.state,count(v.tid)
+from Touristplace tp,Visit v
+where v.tpid=tp.tpid group by v.tpid
+order by count(v.tpid) desc limit 1;
+
++------+-----------+-----------+--------------+
+| tpid | tpname    | state     | count(v.tid) |
++------+-----------+-----------+--------------+
+| TP01 | Bangalore | Karnataka |            2 |
++------+-----------+-----------+--------------+
+
+
+3.select *
+from Tourist
+where tid in(select tid from Visit v,Touristplace tp
+where v.tpid=tp.tpid and state='Karnataka');
+
++-----+----------+-----------+------+
+| tid | tname    | country   | age  |
++-----+----------+-----------+------+
+| T01 | Deepthi  | India     |   22 |
+| T02 | Darshini | India     |   16 |
+| T03 | Nethra   | Australia |   42 |
++-----+----------+-----------+------+
+
+
+4.select * 
+from Tourist 
+where tid in( select tid from Visit,Touristplace 
+where Visit.tpid=Touristplace.tpid 
+group by tid
+having count(distinct state) in (select count(distinct state) from  Touristplace ));
+
++-----+---------+---------+------+
+| tid | tname   | country | age  |
++-----+---------+---------+------+
+| T01 | Deepthi | India   |   22 |
++-----+---------+---------+------+
+
+
+5) select * 
+from Touristplace 
+where tpid in(select tpid from Visit,Tourist 
+              where  Visit.tid=Tourist.tid 
+             group by tpid
+            having count( distinct country)=(select count(distinct country) from Tourist));
+            
++------+-----------+-----------+----------+---------+
+| tpid | tpname    | state     | distance | history |
++------+-----------+-----------+----------+---------+
+| TP01 | Bangalore | Karnataka | 250      | Lalbagh |
++------+-----------+-----------+----------+---------+
+
